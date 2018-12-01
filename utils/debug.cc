@@ -88,6 +88,8 @@ static void sigsegv_handler(int sig, siginfo_t *siginfo, void *context)
     ucontext *u = (ucontext *)context;
 #ifdef REG_RIP // Test if the Program Counter is 64 bits
     unsigned char *pc = (unsigned char *)u->uc_mcontext.gregs[REG_RIP];
+#elif __s390x__
+    unsigned char *pc = (unsigned char *)u->uc_mcontext.psw.addr;
 #else // 32 bit machine, PC is stored in %eip register
     unsigned char *pc = (unsigned char *)u->uc_mcontext.gregs[REG_EIP];
 #endif // REG_RIP for 64-bit machines
