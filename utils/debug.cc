@@ -85,7 +85,7 @@ static struct sigaction caller_sigact;
 static stack_t __sigstack;
 static void sigsegv_handler(int sig, siginfo_t *siginfo, void *context)
 {
-    ucontext *u = (ucontext *)context;
+    ucontext_t *u = (ucontext_t *)context;
 #ifdef REG_RIP // Test if the Program Counter is 64 bits
     unsigned char *pc = (unsigned char *)u->uc_mcontext.gregs[REG_RIP];
 #elif __s390x__
